@@ -1,6 +1,7 @@
 package no.restaff.fresher.ui;
 
 import net.serenitybdd.screenplay.targets.Target;
+import no.restaff.fresher.model.User;
 import org.openqa.selenium.By;
 
 public class LoginPage {
