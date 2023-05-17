@@ -15,9 +15,11 @@ import static no.restaff.fresher.ui.OSPage.*;
 
 public class Create implements Task {
     private String activityName;
+    private String activityCode;
 
     public Create(Activity activity) {
         activityName = activity.getActivityName();
+        activityCode = activity.getActivityCode();
     }
 
     public static Performable newActivity(Activity activity) {
@@ -32,7 +34,15 @@ public class Create implements Task {
                 Click.on(REGISTER_DATA_MANAGER),
                 Click.on(ACTIVITIES_MANAGER),
                 Click.on(ACTIVITIES),
-                Click.on(ADD_NEW_ACTIVITY_BUTTON)
+                Click.on(ADD_NEW_ACTIVITY_BUTTON),
+                Enter.theValue(activityName).inTo(ACTIVITY_NAME_FIELD),
+                Enter.theValue(activityCode).inTo(ACTIVITY_CODE_FIELD),
+                Click.on(ACTIVITY_TYPE_SELECTION),
+                Click.on(START_OPTION),
+                Click.on(ACTIVITY_CATEGORIES_MULTISELECTION),
+                Click.on(BERTHING_OPTION),
+                Click.on(CARGO_OPTION),
+                Click.on(SAVE_BUTTON)
         );
     }
 }
