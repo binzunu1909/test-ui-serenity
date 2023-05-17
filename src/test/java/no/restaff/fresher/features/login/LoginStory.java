@@ -1,28 +1,30 @@
-package no.restaff.fresher.features.search;
+package no.restaff.fresher.features.login;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
-import net.serenitybdd.screenplay.questions.page.TheWebPage;
-import net.thucydides.core.annotations.Issue;
+import net.serenitybdd.screenplay.actions.Click;
+import net.serenitybdd.screenplay.actions.Enter;
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.Steps;
+import no.restaff.fresher.model.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import no.restaff.fresher.tasks.OpenTheApplication;
-import no.restaff.fresher.tasks.Search;
 
 import static net.serenitybdd.screenplay.GivenWhenThen.*;
-import static net.serenitybdd.screenplay.EventualConsequence.eventually;
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.hasItem;
+import static no.restaff.fresher.ui.LoginPage.*;
 
 @RunWith(SerenityRunner.class)
-public class SearchByKeywordStory {
+public class LoginStory {
 
     Actor anna = Actor.named("Anna");
+
+    User user = new User("testbot@mailinator.com","Password..1");
+    String USERNAME = user.getUsername();
+    String PASSWORD = user.getPassword();
 
     @Managed(uniqueSession = true)
     public WebDriver herBrowser;
@@ -40,9 +42,11 @@ public class SearchByKeywordStory {
 
         givenThat(anna).wasAbleTo(openTheApplication);
 
-        when(anna).attemptsTo(Search.forTheTerm("BDD In Action"));
-
-        then(anna).should(eventually(seeThat(TheWebPage.title(), containsString("BDD In Action"))));
-
+        when(anna).attemptsTo(
+                Click.on(NON_SSO_BUTTON),
+                Enter.theValue(USERNAME).into(USERNAME_FIELD),
+                Enter.theValue(PASSWORD).into(PASSWORD_FIELD),
+                Click.on(SIGN_IN_BUTTON)
+        );
     }
 }
