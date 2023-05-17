@@ -7,7 +7,6 @@ import net.thucydides.core.annotations.Step;
 import no.restaff.fresher.ui.HomePage;
 
 public class OpenTheApplication implements Task {
-
     HomePage homePage;
 
     @Step("Open the application")
