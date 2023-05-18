@@ -1,17 +1,21 @@
 package no.restaff.fresher.tasks;
 
-import net.serenitybdd.screenplay.Actor;
-import net.serenitybdd.screenplay.Performable;
-import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.Tasks;
+import net.serenitybdd.screenplay.*;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.questions.WebElementQuestion;
+import net.serenitybdd.screenplay.waits.WaitUntil;
+import net.serenitybdd.screenplay.waits.WaitWithTimeout;
 import net.thucydides.core.annotations.Step;
 import no.restaff.fresher.model.Activity;
-import no.restaff.fresher.model.User;
+import org.junit.Assert;
+import org.openqa.selenium.Keys;
 
-import static no.restaff.fresher.ui.ActivitiesPage.ADD_NEW_ACTIVITY_BUTTON;
-import static no.restaff.fresher.ui.OSPage.*;
+import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
+
+import static no.restaff.fresher.ui.ActivitiesPage.*;
+import static no.restaff.fresher.ui.MenuUI.*;
+import static no.restaff.fresher.ui.NewActivityPopUp.*;
 
 public class Create implements Task {
     private String activityName;
@@ -31,18 +35,23 @@ public class Create implements Task {
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Click.on(MENU_BUTTON),
-                Click.on(REGISTER_DATA_MANAGER),
-                Click.on(ACTIVITIES_MANAGER),
-                Click.on(ACTIVITIES),
+                Click.on(REGISTER_DATA_MANAGER_ITEM),
+                Click.on(ACTIVITIES_MANAGER_ITEM),
+                Click.on(ACTIVITIES_ITEM),
+                Pause.second(3),
                 Click.on(ADD_NEW_ACTIVITY_BUTTON),
-                Enter.theValue(activityName).inTo(ACTIVITY_NAME_FIELD),
-                Enter.theValue(activityCode).inTo(ACTIVITY_CODE_FIELD),
+                Enter.theValue(activityName).into(ACTIVITY_NAME_FIELD),
+                Enter.theValue(activityCode).into(ACTIVITY_CODE_FIELD),
                 Click.on(ACTIVITY_TYPE_SELECTION),
                 Click.on(START_OPTION),
                 Click.on(ACTIVITY_CATEGORIES_MULTISELECTION),
                 Click.on(BERTHING_OPTION),
-                Click.on(CARGO_OPTION),
+                Click.on(CARGO_OPTION).then(Enter.theValue(Keys.ESCAPE).into(BERTHING_OPTION)),
                 Click.on(SAVE_BUTTON)
+//                Click.on(SEARCH_ACTIVITY_NAME_FIELD)
+//                WaitUntil.the(ACTIVITY_NAME_CREATED, isVisible()).forNoMoreThan(30).seconds()
         );
+//        boolean isVisible = WebElementQuestion.the(ACTIVITY_NAME_CREATED).answeredBy(actor).isVisible();
+//        Assert.assertTrue("Failed to create new activity", isVisible);
     }
 }

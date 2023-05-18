@@ -9,7 +9,7 @@ import no.restaff.fresher.ui.HomePage;
 public class OpenTheApplication implements Task {
     HomePage homePage;
 
-    @Step("Open the application")
+    @Step("{0} open the application")
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
                 Open.browserOn().the(homePage)
