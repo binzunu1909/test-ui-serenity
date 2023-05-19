@@ -38,11 +38,10 @@ public class ActivitiesStory {
     }
 
     @Test
-    public void userLogin() {
+    public void user_login_and_create_new_activity_then_delete() {
         anna.wasAbleTo(openTheApplication);
         anna.attemptsTo(
                 Login.asMember(user),
-                Pause.second(30),
                 Create.newActivity(activity)
         );
     }

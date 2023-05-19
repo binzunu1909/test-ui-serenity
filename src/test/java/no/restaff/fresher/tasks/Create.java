@@ -16,6 +16,7 @@ import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisi
 import static no.restaff.fresher.ui.ActivitiesPage.*;
 import static no.restaff.fresher.ui.MenuUI.*;
 import static no.restaff.fresher.ui.NewActivityPopUp.*;
+import static no.restaff.fresher.ui.PopupDelete.DELETE_BUTTON;
 
 public class Create implements Task {
     private String activityName;
@@ -46,12 +47,16 @@ public class Create implements Task {
                 Click.on(START_OPTION),
                 Click.on(ACTIVITY_CATEGORIES_MULTISELECTION),
                 Click.on(BERTHING_OPTION),
-                Click.on(CARGO_OPTION).then(Enter.theValue(Keys.ESCAPE).into(BERTHING_OPTION)),
-                Click.on(SAVE_BUTTON)
-//                Click.on(SEARCH_ACTIVITY_NAME_FIELD)
-//                WaitUntil.the(ACTIVITY_NAME_CREATED, isVisible()).forNoMoreThan(30).seconds()
+                Click.on(CARGO_OPTION),
+                Close.popup(),
+                Click.on(SAVE_BUTTON),
+                Pause.second(2),
+                WaitUntil.the(SEARCH_ACTIVITY_NAME_FIELD, isVisible()).forNoMoreThan(30).seconds(),
+                Enter.theValue(activityName).into(SEARCH_ACTIVITY_NAME_FIELD),
+                WaitUntil.the(ACTIVITY_NAME_CREATED, isVisible()).forNoMoreThan(30).seconds(),
+                Click.on(DELETE_ACTIVITY_BUTTON),
+                Click.on(DELETE_BUTTON),
+                Pause.second(1)
         );
-//        boolean isVisible = WebElementQuestion.the(ACTIVITY_NAME_CREATED).answeredBy(actor).isVisible();
-//        Assert.assertTrue("Failed to create new activity", isVisible);
     }
 }

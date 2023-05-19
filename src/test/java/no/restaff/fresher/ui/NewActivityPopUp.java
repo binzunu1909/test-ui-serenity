@@ -27,5 +27,8 @@ public class NewActivityPopUp {
 
     public static Target SAVE_BUTTON =
             Target.the("save button")
-                    .locatedBy("//span[text()='Save']");
+                    .locatedBy("//span[text()='Save']/parent::button");
+    public static Target OUT_SIDE_POPUP =
+            Target.the("outside popup")
+                    .locatedBy("//body");
 }
