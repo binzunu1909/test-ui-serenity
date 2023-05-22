@@ -14,6 +14,20 @@ public class NewActivityPopUp {
             Target.the("{0} selection")
                     .locatedBy("//span[text()='{0}']");
 
+    public static Target SELECTION_ITEM_FOR_TEXT =
+            Target.the("{0} item")
+                    .locatedBy("//li[text()='{0}']");
+
+    public static Target SELECTION_ITEM_FOR_POSITION_XPATH =
+            Target.the("The item have position {0} in the Activity Types selection")
+                    .locatedBy("//ul[@aria-labelledby='type-select-label']/li[{0}]");
+
+    public static Target SELECTION_ITEM_FOR_POSITION_XPATH_LENGTH = Target.the("length item")
+            .locatedBy("count(//ul[@aria-labelledby='type-select-label']/li)");
+
+
+
+
     public static Target ACTIVITY_NAME_FIELD = FIELD.of("Activity Name");
     public static Target ACTIVITY_CODE_FIELD = FIELD.of("Activity Code");
     public static Target ACTIVITY_TYPE_SELECTION = SELECTION.of("Activity Type");
