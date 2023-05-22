@@ -9,7 +9,7 @@ public class Close {
     public static Performable popup() {
         return Task.where("{0} close popup multiselection", actor->{
             //new Actions(getDriver()).moveByOffset(0, 200).click().build().perform();
-            //BrowseTheWeb.as(actor).withAction().moveByOffset(0, 200).click().build().perform();
+            BrowseTheWeb.as(actor).withAction().moveByOffset(0, 200).click().build().perform();
         });
     }
 }
