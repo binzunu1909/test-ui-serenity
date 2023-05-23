@@ -18,12 +18,12 @@ public class NewActivityPopUp {
             Target.the("{0} item")
                     .locatedBy("//li[text()='{0}']");
 
-    public static Target SELECTION_ITEM_FOR_POSITION_XPATH =
+    public static Target SELECTION_ITEM_FOR_XPATH =
             Target.the("The item have position {0} in the Activity Types selection")
-                    .locatedBy("//ul[@aria-labelledby='type-select-label']/li[{0}]");
+                    .locatedBy("//ul[@aria-labelledby='type-select-label']//li[{0}]");
 
-    public static Target SELECTION_ITEM_FOR_POSITION_XPATH_LENGTH = Target.the("length item")
-            .locatedBy("count(//ul[@aria-labelledby='type-select-label']/li)");
+    public static Target SELECTION_ITEM_FOR_XPATH_LENGTH = Target.the("length item")
+            .locatedBy("//ul[@aria-labelledby='type-select-label']//li");
 
 
 

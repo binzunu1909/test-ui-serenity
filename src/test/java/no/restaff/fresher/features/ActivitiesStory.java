@@ -23,8 +23,6 @@ public class ActivitiesStory {
     User user = new User("testbot@mailinator.com","Password..1");
     Activity activity = new Activity();
 
-    ActivityTypes activityTypes = new ActivityTypes();
-
     @Managed(uniqueSession = true)
     public WebDriver yourBrowser;
 
@@ -41,7 +39,7 @@ public class ActivitiesStory {
         anna.wasAbleTo(openTheApplication);
         anna.attemptsTo(
                 Login.asMember(user),
-                Create.newActivity(activity,activityTypes)
+                Create.newActivity(activity)
         );
     }
 

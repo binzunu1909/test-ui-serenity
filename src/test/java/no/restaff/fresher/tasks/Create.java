@@ -6,33 +6,33 @@ import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 import net.thucydides.core.annotations.Step;
 import no.restaff.fresher.model.Activity;
-import no.restaff.fresher.model.ActivityTypes;
+import java.util.Random;
 
 import static net.serenitybdd.screenplay.matchers.WebElementStateMatchers.isVisible;
 
 import static no.restaff.fresher.ui.ActivitiesPage.*;
 import static no.restaff.fresher.ui.MenuUI.*;
 import static no.restaff.fresher.ui.NewActivityPopUp.*;
+
 import static no.restaff.fresher.ui.PopupDelete.DELETE_BUTTON;
 
 public class Create implements Task {
     private String activityName;
     private String activityCode;
-    private String activityTypeName;
 
-    public Create(Activity activity, ActivityTypes activityType) {
+    public Create(Activity activity) {
         activityName = activity.getActivityName();
         activityCode = activity.getActivityCode();
-        activityTypeName = activityType.getRandomActivityTypeForXpath();
     }
 
-    public static Performable newActivity(Activity activity, ActivityTypes activityTypes) {
-        return Tasks.instrumented(Create.class, activity, activityTypes);
+    public static Performable newActivity(Activity activity) {
+        return Tasks.instrumented(Create.class, activity);
     }
 
     @Override
     @Step("{0} creates new activity whose name is #activityName")
     public <T extends Actor> void performAs(T actor) {
+
         actor.attemptsTo(
                 Click.on(MENU_BUTTON),
                 Click.on(REGISTER_DATA_MANAGER_ITEM),
@@ -43,19 +43,23 @@ public class Create implements Task {
                 Enter.theValue(activityName).into(ACTIVITY_NAME_FIELD),
                 Enter.theValue(activityCode).into(ACTIVITY_CODE_FIELD),
                 Click.on(ACTIVITY_TYPE_SELECTION),
-                Click.on(SELECTION_ITEM_FOR_POSITION_XPATH.of(activityTypeName)),
-                Click.on(ACTIVITY_CATEGORIES_MULTISELECTION),
-                Click.on(BERTHING_OPTION),
-                Click.on(CARGO_OPTION),
-                Close.popup(),
-                Click.on(SAVE_BUTTON),
-                Pause.second(2),
-                WaitUntil.the(SEARCH_ACTIVITY_NAME_FIELD, isVisible()).forNoMoreThan(30).seconds(),
-                Enter.theValue(activityName).into(SEARCH_ACTIVITY_NAME_FIELD),
-                WaitUntil.the(ACTIVITY_NAME_CREATED.of(activityName), isVisible()).forNoMoreThan(30).seconds(),
-                Click.on(DELETE_ACTIVITY_BUTTON.of(activityName)),
-                Click.on(DELETE_BUTTON),
-                Pause.second(1)
+                ChooseRandom.theItemOfSelectionList(SELECTION_ITEM_FOR_XPATH_LENGTH,SELECTION_ITEM_FOR_XPATH)
+//                WaitUntil.the(SELECTION_ITEM_FOR_XPATH.of(randomPosition), isVisible()).forNoMoreThan(30).seconds(),
+//                Click.on(SELECTION_ITEM_FOR_XPATH.of(randomPosition))
+//
+//
+//                Click.on(ACTIVITY_CATEGORIES_MULTISELECTION),
+//                Click.on(BERTHING_OPTION),
+//                Click.on(CARGO_OPTION),
+//                Close.popup(),
+//                Click.on(SAVE_BUTTON),
+//                Pause.second(2),
+//                WaitUntil.the(SEARCH_ACTIVITY_NAME_FIELD, isVisible()).forNoMoreThan(30).seconds(),
+//                Enter.theValue(activityName).into(SEARCH_ACTIVITY_NAME_FIELD),
+//                WaitUntil.the(ACTIVITY_NAME_CREATED.of(activityName), isVisible()).forNoMoreThan(30).seconds(),
+//                Click.on(DELETE_ACTIVITY_BUTTON.of(activityName)),
+//                Click.on(DELETE_BUTTON),
+//                Pause.second(1)
         );
     }
 }
